@@ -26,3 +26,4 @@ Steps
 14. To check status
 	$vagrant status
 
+
