@@ -1,0 +1,28 @@
+Steps
+======
+
+1. Install the latest vagrant from Hashicorp site
+2. Install the latest version of Virtualbox
+3. Download the latest centos release from http://www.vagrantbox.es/
+3. create a folder in windows "centos-<release>"
+4. move the downloaded centos box into the above folder
+5. Add the box in vagrant as follows
+	$vagrant box add <downloaded centos box> --name <name of your choice>
+6. Once the box is added successfully, initialize as follows
+	$vagrant init
+7. The above command creates Vagrantfile, you need to edit the file to change the name and you can add other options specific to the virtual machine
+8. To bring up the VM,
+	$vagrant init
+9. To get the ssh config, type 
+	$vagrant ssh-config
+10. You can use the information that you get by typing the above command, fill the details in Putty screen and can ssh into the node using Putty. Alternatively, you can use 
+	$vagrant ssh [box name]
+11. if you make changes to Vagrantfile, you can reload VMs using
+	$vagrant reload
+12. To stop VMs, you can use 
+	$vagrant halt
+13. To destroy VMs, you can use
+	$vagrant destroy
+14. To check status
+	$vagrant status
+
