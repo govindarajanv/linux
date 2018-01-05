@@ -1,0 +1,37 @@
+1.	Install telnet-server and telnet (client)
+	-	Enable the service at startup
+	-	start the service
+	-	test telnet by connecting to localhost
+	-	stop the service
+	- 	test the telnet by connecting to localhost
+	-	disable to the telnet to run after booting
+2.	Get ip details of two VMs
+	-	Log into one of the VMs
+	-	Try to ping the other VM
+	-	Disable icmp using iptables in VM#1
+	-	Try pinging VM#1 from VM#2
+	-	Try with both DROP and REJECT and understand the differences
+	-	flush the iptables
+	-	Inquire the iptables
+	- 	re-enable the icmp ping and test again
+3.	Get the list of ports open on a server
+	-	using netstat
+	-	using ss
+4.	check for services on a particular port. check the service that is associated with port 22
+	-	using netstat
+	-	using ss
+5. 	Use an utility to check what runs on a system, scan all the ports and get a report
+	-	normal run
+	-	run with no trace
+6.	Monitor IP traffic on a server
+7.	Get details about CPU, network etc
+	-	use dstat
+8.	Identify the idle process for killing
+9.	Identify number of CPUs and percentage of load on your server
+10.	Identify % of load on each of the CPUs
+11.	Identify free memory on your server
+12.	Inquire the mounted partitions for percentage usage
+13.	Get the inodes usage on your server
+14.	Get the disk usage on /etc directory in human readable format
+15.	Get the disk usage summary of /var directory
+16.	
