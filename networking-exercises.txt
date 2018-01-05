@@ -34,4 +34,7 @@
 13.	Get the inodes usage on your server
 14.	Get the disk usage on /etc directory in human readable format
 15.	Get the disk usage summary of /var directory
-16.	
+16.	count the number of processes running on a system
+17. 	count the number of processes run by a user
+18.	Get the details about your boot process and also other details of the network
+19.	
