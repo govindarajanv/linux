@@ -41,8 +41,21 @@ Networking Basics
 	#nmcli conn show
 
 12	Go to the configuration file of the last network interface shown in the above command
-	#
+	#nmcli conn show
+
+	Get the device from the above command, for example device is 'eth0'
+	#sudo find / -name "ifcfg-eth0"
+
 13	Add a new connection with auto connect feature on the last network interface
+	#yum install bash-completion bash-completion-extras
+
+	--comment: 
+	--sourcing will run the commands in the current shell process. executing will run the commands in a new shell process
+
+	#source /etc/profile.d/bash_completion.sh
+	#nmcli 
+
+
 14	Get the active network connections
 15	Get the list of active devices 
 16	get the list of hostnames internally resolved and external name servers referred
