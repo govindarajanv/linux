@@ -37,4 +37,9 @@
 16.	count the number of processes running on a system
 17. 	count the number of processes run by a user
 18.	Get the details about your boot process and also other details of the network
-19.	
+19.	Networking Basics
+	-	check ip address of the machine
+	-	ping google.com 5 times
+	-	run a network trace
+	-	Get all the hops to reach a network destination
+	-	get all listening and 	
