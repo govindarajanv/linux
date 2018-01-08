@@ -1,0 +1,101 @@
+
+Networking Basics
+=================
+
+1	check ip address of the machine
+	#ip addr show
+	#ip a s
+	#ifconfig
+
+2	ping google.com 5 times
+	#ping -c3 google.com
+
+3	run a network trace
+	#traceroute google.com
+
+4	Get all the hops to reach a network destination
+	#tracepath google.com
+
+5	get all listening and established connections
+	#ss -a
+
+6	get all connections with tcp sockets and portnum
+	#ss -nt
+
+7	get all connections with udp sockets and portnum
+	#ss -up
+
+8	find which network devices are attached
+	#yum install NetworkManager
+	#systemctl start NetworkManager
+	#nmcli dev status
+
+9	how to view transmission statistics for a network interface which comes second when you fire #ip a s
+	#ip -s link show eth0
+
+10	open UI based network manager
+	#yum install NetworkManager-tui -y
+	#nmtui
+
+11	get the list of all network interfaces
+	#nmcli conn show
+
+12	Go to the configuration file of the last network interface shown in the above command
+	#
+13	Add a new connection with auto connect feature on the last network interface
+14	Get the active network connections
+15	Get the list of active devices 
+16	get the list of hostnames internally resolved and external name servers referred
+17	get the list of dns and ip mapping for name resolution done locally
+18	get the order of DNS search, locate the configuration done for the same
+19	set a transient hostname for your node
+20	set a hostname that can survive the reboot
+21	To retrieve entries from databases as specified in your Name Service Switch configuration /etc/nsswitch.conf
+22	enable telnet service to start automatically at boot time
+23	list all current rules sorted by chain
+24	Disable FORWARD in iptables
+25	flush the configurations in iptables
+26	enable FORWARD chain in iptables
+27	Disable ping on your server from another server using REJECT
+28	Disable ping on your server from another server using DROP
+29	locate the configuration file related to iptables
+20	flush only input chain
+21	flush all chains
+22	save iptables configuration
+23	flush and restore the iptables configuration back
+24	inquire for a give rule say 'INPUT'
+25	To monitor network performance
+	- use netstat
+	- use ss
+26	check for services on a particular port using ss (take port as 22)
+27	check what is running on your system and scan all ports 
+28	Do ip traffic monitor
+29	get details about CPU, network use
+30	display the current open, closed, establish and orphaned TCP processes on the system
+31	run a scan for all open ports on the system
+32	list processes open by socket
+33	Run the command that allows you to filter IPv4 traffic by type; show types ESTABLISHED and LISTEN
+34	display the current processes, memory and network bandwidth utilization of the server
+35	to run the above command every five seconds and execute only ten iterations of it before stopping.
+36	check how routers are setup
+	- using netstat
+	- using ip command
+37	Route all traffic via 192.168.1.254 gateway connected via eth0 network interface
+38	Delete the above routing and confirm
+39	Dynamically route ip traffic
+	- use quagga
+	- use CentOS 7 system as a router
+40	Setup local time server
+	- setup ntp server
+	- query the server
+	- get the stats
+	- make that server to act as a local server (with local clock)
+	- make firwall changes to allow this action
+	- query ntp to confirm that local clock is referred
+	- reboot and check if your changes survives the reboot
+41	Setup one ntp client in a different server
+	- this client should refer the above server for time
+	- enable firewall rules to allow this bi-directional communication
+	- Inquire to confirm that the client refers the above server
+	- reboot and check if your changes survives the reboot
+4	

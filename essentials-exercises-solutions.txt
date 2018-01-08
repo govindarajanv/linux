@@ -4,3 +4,4 @@ Exercises
 References: http://www.tldp.org/LDP/intro-linux/html/sect_02_05.html
 
 1	Try to find the package corresponding to /bin/nmtui
+	#rpm -qf /bin/nmtui
