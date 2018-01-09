@@ -1,0 +1,7 @@
+Service Configuration
+=====================
+
+1	When user logs in, he should be greeted by a banner 'Hey, I was eagerly waiting for your login!!!'. Once his login is successful, display 'Month of the day is <current month>'
+2	Deny a list of users and try logging in with those user ids
+3	
+4	
