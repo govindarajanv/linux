@@ -1,0 +1,10 @@
+Exercises
+==========
+
+1	Execute the order of execution when a new shell is created with su -l and check the following
+	-	echo $USER
+	-	id
+	-	check pwd
+	-	add echo statements in all the associated files (.bashrc, .bash_profile, .bash_logout,/etc/profile and /etc/bashrc)
+2	Execute the above with only su without any switches
+3	
