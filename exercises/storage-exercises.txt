@@ -1,0 +1,2 @@
+1	create 5 EBS volumes of 100G in size, group those volume in one single volume group
+	create one logical volume of size 498G, mount that on /data1 and make this configuration persistent
