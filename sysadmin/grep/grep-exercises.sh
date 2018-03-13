@@ -17,5 +17,6 @@ grep -B2 name /proc/cpuinfo
 grep -a2 name /proc/cpuinfo
 grep -C2 name /proc/cpuinfo
 
-#parse csv files
+#search ntp.conf file starting with server
+grep '^server' /etc/ntp.conf
 

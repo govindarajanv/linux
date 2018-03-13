@@ -1,0 +1,8 @@
+-	\b[Cc]olou?r\b		-	matches Color, Colour, color and colour
+
+
+Anchors
+-	^			-	beginning
+-	^root			-	starts with root
+-	$			-	end
+-	4$			-	ends with 4
