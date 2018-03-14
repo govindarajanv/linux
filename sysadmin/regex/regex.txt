@@ -6,3 +6,14 @@ Anchors
 -	^root			-	starts with root
 -	$			-	end
 -	4$			-	ends with 4
+
+Ranges
+-	square brackets denotes ranges and '-' denotes to
+-	[A-Za-z]		-	Anyletter
+-	[0-9]			-	Any digit
+-	[a-z_]			-	Any lowercase letter or underscore
+-	[349]			-	Matches 3,4 and 9
+
+Boundaries
+-	\s			-	whitespace
+-	\b			-	word boundary
