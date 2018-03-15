@@ -63,3 +63,19 @@ grep '\Bpop[0-9]\b' /etc/services
 
 #look for pop from /etc/services but with some suffix to pop
 grep 'pop[0-9]\B' /etc/services
+
+#exclude the lines with comment with varied space at the front of them followed by #
+grep -v '^\s*#' test
+
+#find all lines with word start end with varying spaces between them
+grep 'start\s*end' file
+
+#find all lines with word start end with maximum of one space between them
+grep 'start\s?end' file
+grep -E 'start\s?end' file
+
+#find all lines with word start end with two spaces between them
+grep 'start\s{2}end' file
+
+#how do you search for a line in the file with some text with pattern like ab12 7af   {1,2} means one or two of these
+grep -E '[a-z]{2}[0-9]{1,2}

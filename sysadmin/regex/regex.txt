@@ -17,3 +17,9 @@ Ranges
 Boundaries
 -	\s			-	whitespace
 -	\b			-	word boundary
+
+Quantifiers
+-	u*			-	multiple u's
+-	u?			-	one u
+-	u{3}			-	uuu
+-	
