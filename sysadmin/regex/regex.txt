@@ -15,11 +15,12 @@ Ranges
 -	[349]			-	Matches 3,4 and 9
 
 Boundaries
--	\s			-	whitespace
+-	\s			-	whitespace or tab
 -	\b			-	word boundary
 
 Quantifiers
--	u*			-	multiple u's
--	u?			-	one u
--	u{3}			-	uuu
--	
+-	u*			-	multiple u's but optional
+-	u?			-	one u but optional
+-	u{3}			-	uuu 3 times
+-	u+			-	one or more of the previous character
+-	use -E			-	for quantifiers in grep command	

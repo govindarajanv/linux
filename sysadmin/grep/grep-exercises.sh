@@ -79,3 +79,9 @@ grep 'start\s{2}end' file
 
 #how do you search for a line in the file with some text with pattern like ab12 7af   {1,2} means one or two of these
 grep -E '[a-z]{2}[0-9]{1,2}
+
+#refer the file ssn.csv and filter out records with valid SSN number if the format nnn-nn-nnnn where n is a number
+grep -E '\b[0-9]{3}-[0-9]{2}-[0-9]{4}\b' ssn.csv
+
+#To get the incorrect SSN numbers
+grep -vE '\b[0-9]{3}-[0-9]{2}-[0-9]{4}\b' ssn.csv
