@@ -8,6 +8,9 @@ sed -n 'p' /etc/passwd
 #print first 5 line
 sed -n '1,5 p ' /etc/passwd
 
+#print till the last line from 5th line
+sed -n '5,$ p ' /etc/passwd
+
 #print lines beginning with user
 sed -n '/^user/ p ' /etc/passwd
 
