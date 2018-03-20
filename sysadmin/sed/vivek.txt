@@ -1,0 +1,6 @@
+# This is a comment line
+  haproxy line 1
+  #Haproxy comment line 2
+
+haproxy configuration line
+haproxy configuration #line

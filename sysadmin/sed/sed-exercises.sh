@@ -23,4 +23,30 @@ sed ' /^#/ d; /^$/ d' /etc/ntp.conf
 #Take a backup of ntp.conf as ntp.conf.safe, remove commented line '#' and empty lines
 #sed -i.backup '/^#/d;/^$/d' /etc/ntp.conf
 
+#format of sed
+#sed ' [range] [/pattern/] s/<string>/<replacement>/ ' /etc/passwd
+# '/' follows 's' is a delimiter
+# 'g' optionis required for more than one replacement required per line
+
+[root@work-station vagrant]# sed ' 6,9 s/^/    /g' parsecsv.sh
+#!/bin/bash
+OLDIFS=$IFS
+IFS=","
+while read product price quantity
+do
+        echo -e "\e[1;33m$product \
+            ========================\e[0m\n\
+        Price : \t $price \n\
+        Quantity : \t $quantity \n"
+
+done < $1
+IFS=$OLDIFS
+[root@work-station vagrant]# sed -n ' 6,9 s/^/    /g' parsecsv.sh
+[root@work-station vagrant]# sed -n ' 6,9 s/^/    /p' parsecsv.sh
+        echo -e "\e[1;33m$product \
+            ========================\e[0m\n\
+        Price : \t $price \n\
+        Quantity : \t $quantity \n"
+#modify the shell from bash to sh
+sed -n ' /^vagrant/ s@/bin/bash@/bin/sh@p ' /etc/passwd
 
