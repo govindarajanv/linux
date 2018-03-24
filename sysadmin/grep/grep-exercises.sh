@@ -85,3 +85,4 @@ grep -E '\b[0-9]{3}-[0-9]{2}-[0-9]{4}\b' ssn.csv
 
 #To get the incorrect SSN numbers
 grep -vE '\b[0-9]{3}-[0-9]{2}-[0-9]{4}\b' ssn.csv
+

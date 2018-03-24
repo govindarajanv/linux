@@ -50,3 +50,9 @@ IFS=$OLDIFS
 #modify the shell from bash to sh
 sed -n ' /^vagrant/ s@/bin/bash@/bin/sh@p ' /etc/passwd
 
+#Append, insert and delete
+#find server 3 and append server ntp.example.com
+sed ' /^server 3/ a server ntp.example.com ' /etc/ntp.conf
+
+sed ' /^server 0/ i server ntp.example.com ' /etc/ntp.conf
+sed ' /^server\s[0-9]\.ubuntu/ d ' /etc/ntp.conf
