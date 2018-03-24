@@ -53,6 +53,20 @@ sed -n ' /^vagrant/ s@/bin/bash@/bin/sh@p ' /etc/passwd
 #Append, insert and delete
 #find server 3 and append server ntp.example.com
 sed ' /^server 3/ a server ntp.example.com ' /etc/ntp.conf
-
+#insert
 sed ' /^server 0/ i server ntp.example.com ' /etc/ntp.conf
+#delete
 sed ' /^server\s[0-9]\.ubuntu/ d ' /etc/ntp.conf
+
+#Multiple sed commands
+sed ' {
+/^server 0/ i server ntp.example.com
+/^server \s[0-9]/d 
+} ' /etc/ntp.conf
+
+#create .sed file
+#deletion of empty lines /^$/d
+#deletion of commented line /^\s*#/d
+
+sed -f ntp.sed /etc/ntp
+sed -i.backup -f ntp.sed /etc/ntp
