@@ -70,3 +70,11 @@ sed ' {
 
 sed -f ntp.sed /etc/ntp
 sed -i.backup -f ntp.sed /etc/ntp
+
+#remotely edit file using ssh and sed
+# -t switch in ssh assigns a tty allowing for sudo password
+# .sed file will be on remote server
+#ssh -t user@server sudo sed -i.bak -f /tmp/ntp.sed
+scp ntp.sed vagrant@10.1.1.31:/tmp
+ssh -t vagrant@10.1.1.31 sudo -i.bkp -f /tmp/ntp.sed /etc/ntp.conf
+
