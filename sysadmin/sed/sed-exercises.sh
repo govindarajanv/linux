@@ -78,3 +78,23 @@ sed -i.backup -f ntp.sed /etc/ntp
 scp ntp.sed vagrant@10.1.1.31:/tmp
 ssh -t vagrant@10.1.1.31 sudo -i.bkp -f /tmp/ntp.sed /etc/ntp.conf
 
+#substitution groups
+# 1 indicates first file in the replacing string, make the last name of the employee all caps
+#
+sed ' s@\([^,]*\)@\U\1@' employees
+# with last name of the employee all caps and first name in all small 
+# two groupings are separated by comma character no 17
+# first command removes comma in the output while second one retains it
+#https://regexr.com/   ^ - Negated set, match any character not in the set
+sed 's@\([^,]*\),\([^,]*\)@\U\1\L\2@' employees
+sed 's@\([^,]*\),\([^,]*\)@\U\1,\L\2@' employees
+
+#cat dictFile
+#first:second
+#one:two
+#swap the contents delimited by :
+sed 's/\(.*\):\(.*\)/\2:\1/' dictFile
+
+#change the above employee file such as way that print first name:last name: third column
+sed 's@\(.*\),\(.*\),\(.*\)@\2:\1:\3@' employees
+
