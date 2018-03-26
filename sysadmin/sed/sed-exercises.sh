@@ -98,3 +98,34 @@ sed 's/\(.*\):\(.*\)/\2:\1/' dictFile
 #change the above employee file such as way that print first name:last name: third column
 sed 's@\(.*\),\(.*\),\(.*\)@\2:\1:\3@' employees
 
+#
+sed 's/\(^\|[0-9.]\)([0-9]\+\)\([0-9]\{3\}\)/\1\2,\3/g' /proc/loadavg
+
+#To execute a command using sed
+# cat file.list gives /etc/hosts and /etc/services
+
+sed '       s/^/ls -l /e ' file.list
+
+# add users in the system by reading a file containing user names
+sed ' s/^/sudo useradd /e ' user.list
+
+# creating and deleting tar files
+sed ' /^\// s/^/tar -rf catalog.tar /e' cat.list
+sed ' /^\// s/^/rm -f /e' cat.list
+
+#Add extra spaces in a given range in vim
+#%/stats/stuff/g here % says entire document else you can specify a range
+#g represents global meaning all occurrences not the first occurrence.
+# 1,30s/server/stuff/g
+
+#if you want to intend the line, first one is pattern matching
+# /^restrict/s/^/    /
+
+#to add spaces till the end of the document from 8th line
+# 8,$ s/^/
+
+#selectively move lines to a new file
+#4,10 w <filename>
+
+#read a file
+#:r <filename>
