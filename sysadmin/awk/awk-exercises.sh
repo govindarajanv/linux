@@ -34,4 +34,6 @@ END { print "Total users = " count }
 
 #usage awk -f users.awk /etc/passwd
 
+# to negate the choice, user says he does not want these conditions
+#  !(/Never logged in/ || /^Username/ || /^root/) 
 
