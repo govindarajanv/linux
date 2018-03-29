@@ -34,6 +34,9 @@ END { print "Total users = " count }
 
 #usage awk -f users.awk /etc/passwd
 
+# to negate the choice, user says he does not want these conditions
+#  !(/Never logged in/ || /^Username/ || /^root/) 
+
 # $0 represents the complete line and ~ represents the match
 # use sed to add a new line to virtualhost.conf
 awk -f virtualhost.awk search=example virtualhost.conf
@@ -52,4 +55,3 @@ BEGIN {
 $0 ~ search {           
         print           
 }                       
-                        
