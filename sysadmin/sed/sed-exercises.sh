@@ -129,3 +129,8 @@ sed ' /^\// s/^/rm -f /e' cat.list
 
 #read a file
 #:r <filename>
+
+
+# Remove blank lines from virtualhost.conf; \ represnets a new blank line
+sed ' /^\s*$/d ' virtualhost.conf
+sed ' /^\s*$/d;/^<\/Virt/a \ ' virtualhost.conf

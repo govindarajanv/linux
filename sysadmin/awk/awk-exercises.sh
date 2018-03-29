@@ -34,4 +34,22 @@ END { print "Total users = " count }
 
 #usage awk -f users.awk /etc/passwd
 
+# $0 represents the complete line and ~ represents the match
+# use sed to add a new line to virtualhost.conf
+awk -f virtualhost.awk search=example virtualhost.conf
 
+#To search saw from catalog/tool.xml
+awk -f virtualhost.awk search=saw catalog/tool.xml
+
+# [><] represents either or field separator
+# print in the below middle block is for printing the entire line
+# if you want to print 4th column print $4
+BEGIN {                 
+        FS="[><]";      
+        RS="\n\n";      
+        OFS=" ";        
+}                       
+$0 ~ search {           
+        print           
+}                       
+                        
