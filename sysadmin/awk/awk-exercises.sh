@@ -37,7 +37,7 @@ END { print "Total users = " count }
 # to negate the choice, user says he does not want these conditions
 #  !(/Never logged in/ || /^Username/ || /^root/) 
 
-# $0 represents the complete line and ~ represents the match
+# $0 represents the complete line and ~ represents the match; simply print will also print the whole line
 # use sed to add a new line to virtualhost.conf
 awk -f virtualhost.awk search=example virtualhost.conf
 
@@ -55,3 +55,20 @@ BEGIN {
 $0 ~ search {           
         print           
 }                       
+
+#Before processing any log file understand its schema
+#for example, web access logs could have the following schema
+# Field 1 	-	Client ip
+# Field2/3	-	identd and user id ( --)
+# Field 4/5	-	Time and Time zone
+# Field 6/7/8	-	Method (GET/POST), File and Protocol
+# Field 9	-	Status code
+# Field 10	-	size
+
+# To look for error 404 in webserver access log
+awk '$9 == 404 { print $0 } ' access.log
+
+# count unique access by a clinet
+# in the count awk script, array uses $i ip address which is a named array that stores a key for each ip address
+# value of key is incremented each time ip address is found
+#ip[10.1.1.31]3 => ip 10.1.1.31 is access 3 times
