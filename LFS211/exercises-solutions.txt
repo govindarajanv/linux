@@ -1,0 +1,21 @@
+1	-	yum install vsftpd ftp
+	-	/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf &
+	-	ps -ef|grep ftp
+	-	ftp localhost
+	-	killall vsftpd
+
+2	-	/etc/init.d/vsftpd start
+	-	ps -ef|grep ftp
+	-	ftp localhost
+	-	/etc/init.d/vsftpd stop
+3	-	systemctl start vsftpd.service	
+	-	systemctl status vsftpd.service
+	-	ftp localhost
+	-	systemctl stop vsftpd.service
+4	-	systemctl enable vsftpd.service
+	-	systemctl status vsftpd.service
+5
+6	
+	-	#ip address show
+	-	#ip route show
+	-	cat /etc/resolv.conf

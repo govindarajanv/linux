@@ -1,0 +1,18 @@
+1	start and stop a system service manually	
+	-	Install vsftpd and ftp 
+	-	start the service manually
+	-	check if service is running
+	-	try ftp to the localhost
+	-	kill the process
+2	Start the system service using SYSV init script
+	-	verify if it is running
+	-	gtp to the local host
+	-	kill the process
+3	Use systemd to start a service
+	-	same steps with systemd
+4	Use systemctl to enable a service and check the status
+5	
+6	Get the basic network configuration information	
+	-	Get the IP address, netmask or prefix and the network device.
+	-	Get the default route
+	-	Get the DNS search list and name server records
