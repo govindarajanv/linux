@@ -25,3 +25,13 @@
 	-	If you have a second machine, set up the address 10.200.45.110/255.255.255.0
 9	Restore the DHCP configuration
 	-	Remove the files and changes to restore the DHCP configuration of your systems.
+10	Create an intermittent network issue and prove what is broken
+	-	Use this netem command to introduce a network problem on the server (random packet drops).
+	-	# tc qdisc add dev lo root netem loss random 40
+	-	Prove the problem is random packet drops.
+	-	Clean up the tc command to avoid issues in future labs # tc qdisc del dev lo root
+11	Prove a service is listening only on localhost
+	-	Prove the default SMTP service is only running on localhost.
+	-	You may have to start or enable the SMTP service, and install the telnet client for this lab
+12	Block traffic to a service with TCP Wrappers and prove it is blocked
+	-	

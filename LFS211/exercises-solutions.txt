@@ -37,3 +37,30 @@
 	-	First machine: ping 10.200.45.110
 	-	Second Machine: ping 10.200.45.100	
 9	-	remove the /etc/sysconfig/network-scripts/ifcfg-<interfacename> file and restart the network services
+10	-	Use the ping command to verify packets are dropping  #ping localhost
+	-	While the ping is running, use tcpdump on another terminal session to see the packets sent and received
+		#tcpdump -i lo proto ICMP
+		You should see all the requests being sent, but a smaller number of responses
+
+11	-	Use the netstat command to prove where the SMTP daemon is listening
+		# netstat -taupe | grep smtp
+
+	-	Use the telnet command to prove that the daemon is listening on localhost only
+		Connect to the localhost interface
+			-	telnet localhost 25
+		Attempt to connect from a remote interface
+			-	telnet X.Y.Z.A 25
+12	-	Start a service
+		# /etc/init.d/vsftpd start
+
+	-	Check port with telnet
+		#telnet localhost ftp
+
+	-	Block the port by adding the following line to /etc/hosts.deny
+		vsftpd: ALL
+	
+	-	Check port with telnet
+		# telnet localhost ftp     // you should have got connection refused message
+
+	-	Remove the line from /etc/hosts.deny to clean up the exercise
+
