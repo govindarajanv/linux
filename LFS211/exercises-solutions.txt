@@ -19,3 +19,21 @@
 	-	#ip address show
 	-	#ip route show
 	-	cat /etc/resolv.conf
+7	
+	-	Edit /etc/sysconfig/network-scripts/ifcfg-<adaptername>
+
+		DEVICE=<adapter-name>
+		TYPE=ethernet
+		BOOTPROTO=none
+		IPADDR=10.0.2.15
+		PREFIX=24
+		GATEWAY=10.0.2.2
+		DNS1=8.8.8.8
+		NAME="LFSstatic"
+		ONBOOT=yes	
+	-	restart the networking services
+8	-	First machine: ip addr add 10.200.45.100/24 dev eth0
+	-	Second machine: ip addr add 10.200.45.110/24 dev eth0
+	-	First machine: ping 10.200.45.110
+	-	Second Machine: ping 10.200.45.100	
+9	-	remove the /etc/sysconfig/network-scripts/ifcfg-<interfacename> file and restart the network services

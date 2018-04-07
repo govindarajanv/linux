@@ -16,3 +16,12 @@
 	-	Get the IP address, netmask or prefix and the network device.
 	-	Get the default route
 	-	Get the DNS search list and name server records
+7	Create a boot-time configuration of your network interface
+	-	Reboot and verify the network connections function.
+8	Changing Network Configuration and aliases
+	-	Create a runtime configuration change
+	-	Create a new network alias and if possible test it.
+	-	Set up the address 10.200.45.100/255.255.255.0
+	-	If you have a second machine, set up the address 10.200.45.110/255.255.255.0
+9	Restore the DHCP configuration
+	-	Remove the files and changes to restore the DHCP configuration of your systems.
