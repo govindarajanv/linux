@@ -39,3 +39,27 @@
 	-	Check the parameter PermitRootLogin is set to yes in the /etc/ssh/sshd_config file. If it is not, set the parameter to yes and restart the sshd server.
 	-	Make an SSH key and add it to an SSH agent
 	-	Copy the SSH pubkey manually or use ssh-copy-id
+14	Change the default username and create a host alias using $HOME/.ssh/config
+	-	Edit the file $HOME/.ssh/config with the following contents
+	-	Use the OpenSSH client to connect to the new alias
+15	Enable key-only root logins in your openssh daemon
+	-	
+16	Launch the xeyes program on a remote system while displaying it locally.  NOTE: You may have to install the xeyes program.
+17	Configure and test the pssh command on the local adapters on your system.  
+	-	The pssh or parallel-ssh command will send commands to many machines controlled by a text file as to what machines are used. 
+	-	pssh works best with StrictHostKeyChecking=no or previously added fingerprints to the ~/.ssh/knownhosts file. 
+	-	The pssh commands are most secure with ssh key copied into the targets authorized keys file.
+18	Install VNC server. Use the vncserver command to create a VNC session
+	-	
+19	Use the SSH tunneling feature of vncviewer.
+	-	Connect to a VNC server over SSH.
+	-	Kill your VNC server
+20	Create a systemd configuration file that will allow two VNC sessions one on port 42 and the other on port 43. The two VNC instances will be for the user student and be encrypted.
+
+	-	Create the systemd configuration file
+	-	Re-load the systemd configuration files
+	-	Start the VNCservers
+	-	Verify the VNC servers are working
+	-	Make the VNC servers start at boot time
+
+

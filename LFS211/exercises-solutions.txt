@@ -70,3 +70,82 @@
 		# ssh student@localhost
 		# id
 		# exit
+14	-	.ssh/config
+		host garply
+		hostname localhost
+		user root
+		host *
+		ForwardX11 yes
+	-	$ ssh garply
+		$ hostname
+		$ id
+		$ exit
+15	-	Edit the file /etc/ssh/sshd_config and make sure this line is present
+		PermitRootLogin without-password
+
+	-	Restart the sshd daemon.
+		# systemctl restart sshd.service
+
+	-	Copy the file /home/student/.ssh/authorized_keys to the directory /root/.ssh/ and make sure it is owned by the root user and group
+		# cat /home/student/.ssh/authorized_keys >> /root/.ssh/authorized_keys
+		# chown root.root /root/.ssh/authorized_keys
+		# chmod 640 /root/.ssh/authorized_keys	
+	-	Log in to the host garply again, to prove your ssh-key login works.
+		$ ssh garply
+		$ id
+		$ hostname
+		$ exit
+16	-	ssh -X student@server xeyes
+17	-	Install or verify pssh is installed
+		#sudo yum install pssh
+		#sudo rpm -ql pssh | grep bin
+
+	-	Setup ssh keys and fingerprints If not already done, create a key pair on the local machine
+		#ssh-keygen
+
+	-	Copy the key to the remote and save the fingerprint
+		# ssh-copy-id localhost
+
+	-	Test the password-less connection, if you are prompted for anything fix it now
+		#ssh localhost
+
+	-	Create a ip-list file for pssh
+		$ echo "127.0.0.1" > ~/ip-list
+		$ echo "172.16.104.135" >> ~/ip-list
+		$ echo "localhost" >> ~/ip-list
+	
+	-	Now try some commands with parallel-ssh to the local machine
+		$ parallel-ssh -i -h ~/ip-list date
+		$ parallel-ssh -i -h ~/ip-list sudo timedatectl
+		$ parallel-ssh -i -h ~/ip-list sudo hostnamectl
+18	-	Ensure VNC server is installed. # yum install tigervnc-server tigervnc
+	-	Start the server  #vncserver
+	-	Test the server with vncviewer.
+		#vncviewer localhost:1
+19	-	# vncviewer -via student@hostname localhost:1	
+	-	# vncserver -kill :1
+
+20	-	/etc/systemd/system/vncserver@.service
+		[Unit]
+		Description=Remote desktop service (VNC) on port :%I
+		After=syslog.target network.target
+		[Service]
+		Type=forking
+		User=student
+		ExecStartPre=-/usr/bin/vncserver -kill :%i
+		ExecStart=/usr/bin/vncserver :%i -localhost
+		PIDFile=/home/lee/.vnc/%H:%i.pid
+		ExecStop=-/usr/bin/vncserver -kill :%i
+		[Install]
+		WantedBy=multi-user.target
+
+	-	#systemctl daemon-reload
+
+	-	# systemctl start vncserver@42
+		# systemctl start vncserver@43
+
+	-	# vncviewer -via student@hostname localhost:42
+		# vncviewer -via student@hostname localhost:43
+
+	-	# systemctl enable vncserver@42
+		# systemctl enable vncserver@42
