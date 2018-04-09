@@ -35,3 +35,7 @@
 	-	You may have to start or enable the SMTP service, and install the telnet client for this lab
 12	Block traffic to a service with TCP Wrappers and prove it is blocked
 	-	
+13	Set up SSH key-based authentication
+	-	Check the parameter PermitRootLogin is set to yes in the /etc/ssh/sshd_config file. If it is not, set the parameter to yes and restart the sshd server.
+	-	Make an SSH key and add it to an SSH agent
+	-	Copy the SSH pubkey manually or use ssh-copy-id

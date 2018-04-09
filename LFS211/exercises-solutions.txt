@@ -63,4 +63,10 @@
 		# telnet localhost ftp     // you should have got connection refused message
 
 	-	Remove the line from /etc/hosts.deny to clean up the exercise
-
+13	-	# ssh-keygen -t rsa -f $HOME/.ssh/id-rsa
+		# eval $(ssh-agent)
+		# ssh-add $HOME/.ssh/id-rsa
+	-	# ssh-copy-id student@localhost
+		# ssh student@localhost
+		# id
+		# exit
