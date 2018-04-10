@@ -149,3 +149,80 @@
 
 	-	# systemctl enable vncserver@42
 		# systemctl enable vncserver@42
+21	-	Install the bind package
+		# yum install bind
+
+	-	Change the configuration to allow remote access.
+		Edit the file /etc/named.conf and add or edit the file to contain this line inside
+		the options block:
+		listen-on port 53 { any; };
+		allow-query { any; };
+
+	-	Start the daemon
+		# systemctl restart named.service
+22	-	Create an entry in the named.conf file for your new zone
+		zone "example.com." IN {
+		type master;
+		file "example.com.zone";
+		};
+
+	-	Create a new zone file for the example.com domain
+		put your zone files in the directory /var/named/.
+
+		$TTL 30
+		@ IN SOA localhost. admin.example.com. (
+		2012092901 ; serial YYYYMMDDRR format
+		3H ; refresh
+		1H ; retry
+		2H ; expire
+		1M) ; neg ttl
+		IN NS localhost.;
+		www.example.com. IN A 192.168.111.45
+		www.example.com. IN AAAA fe80::22c9:d0ff:1ecd:c0ef
+		foo.example.com. IN A 192.168.121.11
+		bar.example.com. IN CNAME www.example.com.
+		;generate one hundred entries host1 thru host100
+		$GENERATE 1-100 host$.example.com. IN A 10.20.45.$
+
+	-	Test your configuration with named-checkzone or named-checkconf -z
+	-	Restart the named daemon
+		# systemctl restart named
+
+	-	Test your new DNS entries
+		$ dig @localhost -t A www.example.com
+		$ dig @localhost -t AAAA www.example.com
+		$ dig @localhost -t A foo.example.com
+		$ dig @localhost -t CNAME bar.example.com
+		$ dig @localhost -t A host7.example.com
+		$ dig @localhost -t A host37.example.com
+
+23	-	Create an entry in the named.conf file for your new zone.
+		Edit the file /etc/named.conf.
+
+		zone "45.20.10.in-addr.arpa." IN {
+		type master;
+		file "45.20.10.in-addr.arpa.zone";
+		};
+
+	-	Create a new zone file for the "45.20.10.in-addr.arpa" domain
+		put your zone files in the directory /var/named/
+
+		$TTL 30
+		@ IN SOA localhost. admin.example.com. (
+		2012092901 ; serial YYYYMMDDRR format
+		3H ; refresh
+		1H ; retry
+		2H ; expire
+		1M) ; neg ttl
+		@ IN NS localhost.;
+		;generate 1-254
+		$GENERATE 1-254 $ IN PTR host$.example.com.
+
+	-	Test your configuration with named-checkzone or named-checkconf -z
+	-	Reload the named daemon.
+		# rndc reload
+
+	-	Test your new DNS entries.
+		$ host 10.20.45.7 localhost
+		$ host 10.20.45.37 localhost
+		$ host 10.20.45.73 localhost

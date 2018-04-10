@@ -61,5 +61,15 @@
 	-	Start the VNCservers
 	-	Verify the VNC servers are working
 	-	Make the VNC servers start at boot time
+21	Configure Caching DNS.Before starting this lab, make sure your system time is correct.
+22	Create an authoritative forward zone for the example.com domain with the following settings
+	-	30 second TTL
+	-	www.example.com has the address 192.168.111.45 and the IPv6 address fe80::22c9:d0ff:1ecd:c0ef
+	-	foo.example.com has the address 192.168.121.11
+	-	bar.example.com has a CNAME pointing to www.example.com
+	-	host1.example.com through host100.example.com have the addresses 10.20.45.1 through 10.20.45.100
+23	Create a reverse DNS zone for the 10.20.45.0/255.255.255.0 network listed above
+	Create an authoritative zone for the 45.20.10.in-addr.arpa domain
+
 
 
