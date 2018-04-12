@@ -226,3 +226,102 @@
 		$ host 10.20.45.7 localhost
 		$ host 10.20.45.37 localhost
 		$ host 10.20.45.73 localhost
+
+24	-	Make sure Apache is installed
+		# yum install httpd mod_ssl
+
+	-	Create an index.html file to serve with Apache in the default DocumentRoot
+		echo "Hello World" > /var/www/html/index.html
+
+	-	Make sure Apache is enabled and started:
+		# systemctl enable httpd
+		# systemctl start httpd
+
+	-	Verify the page you created is visible using a web browser
+25	-	Create a temporary IP alias for your main Ethernet address
+		# ip addr add 192.168.153.X/24 dev eth0
+		Where X is a number no one else in the same LAN is using. Add this new address to /etc/hosts with the host name of ipvhost.example.com for ease of use later
+
+	-	Create a new directory /ipvhost/
+		# mkdir /ipvhost/
+
+	-	Create an /ipvhost/index.html file.
+	
+	-	Verify that SELinux permissions (if enabled) are correct
+		# chcon -R --reference=<YOUR-DOCUMENT-ROOT> /ipvhost/
+
+	-	Create a new IP based virtual host definition. Add this stanza to the suggested file /etc/httpd/conf.d/ipvhost.conf
+		<VirtualHost 192.168.153.X:80>
+		DocumentRoot /ipvhost/
+		ServerName ipvhost.example.com
+		<Directory /ipvhost/>
+		Options Indexes FollowSymLinks
+		AllowOverride None
+		Require all granted
+		</Directory>
+		</VirtualHost>	
+
+	-	Restart the httpd service
+		# systemctl restart httpd
+
+	-	Test your new IP vhost as well as the original host	
+26	-	Create a new name based virtual host definition. Create a new config file with the following contents
+		<VirtualHost *:80>
+		DocumentRoot <DOCUMENTROOT>
+		ServerName _default_
+		</VirtualHost>
+		<VirtualHost *:80>
+		DocumentRoot /namevhost/
+		ServerName namevhost.example.com
+		<Directory /namevhost/>
+		Options Indexes FollowSymLinks
+		AllowOverride None
+		Require all granted
+		</Directory>
+		</VirtualHost>
+	-	Create the new document root folder, and create the index.html file
+		# mkdir /namevhost/
+		# vi /namevhost/index.html
+	-	Verify that SELinux permissions (if enabled) are correct
+		# chcon -R --reference=<YOUR-DOCUMENT-ROOT> /namevhost
+
+	-	Restart apache
+		# systemctl restart httpd
+27	-	Create the new secure folder
+		#mkdir /var/www/html/secure/
+
+	-	Create the following stanza to password protect the directory /etc/httpd/conf.d/secure-dir.conf
+		<Location /secure/>
+		AuthType Basic
+		AuthName "Restricted Area"
+		AuthUserFile secure.users
+		Require valid-user
+		</Location>
+
+	- 	Create a password file and an entry for the user bob in the appropriate directory
+		# htpasswd -c $FILENAME bob
+		You may have to install apache2-utils if htpasswd does not exist
+		Use /etc/httpd/secure.users
+
+	-	Restart apache
+		# systemctl restart httpd
+
+	-	Verify that the directory is password protected and that bob is allowed to log in
+28	-	Backup the original private key, if one exists.
+		# mv /etc/pki/tls/private/localhost.key /etc/pki/tls/private/localhost.key.orig
+
+	-	Create a new private key
+		# /usr/bin/openssl genrsa -aes128 2048 > /etc/pki/tls/private/localhost.key
+
+	-	Create a new self-signed SSL certificate
+		# /usr/bin/openssl req -utf8 -new -key /etc/pki/tls/private/localhost.key -x509 -days 365 -out /etc/pki/tls/certs/localhost.crt -set_serial 0
+
+	-	Restart Apache and test your new certificate. You may have to add ipvhost.example.com to your /etc/hosts file	
+		# systemctl restart httpd
+29	-	Create a new private key
+		# /usr/bin/openssl genrsa -aes128 2048 > /etc/pki/tls/private/ipvhost.example.com.key
+
+	-	Create a new CSR.
+		# /usr/bin/openssl req -utf8 -new -key -key /etc/pki/tls/private/ipvhost.example.com.key  -out /etc/pki/tls/certs/ipvhost.example.com.csr	
+
+	-	You must then send off this CSR to be signed by a Certificate Authority

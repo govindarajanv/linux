@@ -70,6 +70,22 @@
 	-	host1.example.com through host100.example.com have the addresses 10.20.45.1 through 10.20.45.100
 23	Create a reverse DNS zone for the 10.20.45.0/255.255.255.0 network listed above
 	Create an authoritative zone for the 45.20.10.in-addr.arpa domain
-
-
-
+24	Install Apache and create a simple index.html file to serve
+	-	install Apache, create a sample index.html
+25	Create a new virtual network interface and serve a different document root from the new interface
+	-	The original html document should also be accessible from the original IP address
+	-	Create an IP alias in the network 192.168.153.0/24
+	-	Serve a file indicating this is an IP based virtual machine. The file should be /ipvhost/index.html and only available on the newly defined IP address:
+26	Create a name-based virtual host
+	-	Create a new host name by adding the original IP address of the server to /etc/hosts with the name namevhost.example.com
+	-	Ensure the original web server host still serves traffic as the default vhost
+	-	Serve this html file on only the newly defined name vhost:
+	-	Create a new name based virtual host definition. Create a new config file with the following contents, replacing the string DOCUMENTROOT with the proper DocumentRoot for your system
+		-	Document Root 	/var/www/html/
+		-	config file	/etc/httpd/conf.d/namevhost.conf
+27	Create password protected sub directory
+	-	Create the directory secure in the default document root
+	-	Require the user bob enter the password heyman! to access this directory
+28	Create and test a self-signed SSL certificate
+	-
+29	Create a Certificate Signing Request
