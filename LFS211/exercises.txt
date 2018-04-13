@@ -89,3 +89,33 @@
 28	Create and test a self-signed SSL certificate
 	-
 29	Create a Certificate Signing Request
+30	Create a new cgi script-enabled directory /new-cgi/ served at the URI /scripts/.
+	-	Create the script /new-cgi/foo.cgi with the following contents (you may have to create the directory /new-cgi/)
+	-	#!/bin/bash
+		echo -e "\n"
+		echo -e "Content-type: text/plain\n\n"
+		echo -e "File is $1\n"	
+
+31	Create a rewrite rule for "pretty" CGI script URIs
+	-	If you have done the virtualhost lab from the previous chapter you need to add these two lines inside of the namevhost.conf
+file in the default namevhost section
+
+		RewriteEngine on
+		RewriteOptions inherit
+
+	I	Make any URIs which begins with:
+		http://localhost/foo/.*
+
+		Redirect transparently to the cgi script:
+		http://localhost/scripts/foo.cgi?.*
+
+	-	
+32	 Enable Mod Status Secure mod status to be accessible to only the network 10.22.34.0/18, ::1 and 127.0.0.1
+	-
+33	Enable includes under the URI /magic/index.html
+	Include the two files foo.html and bar.html that are located in the DOCUMENTROOT/includes directory. Ensure that files with the extension .html are processing includes, but only when needed.
+
+	-	
+
+
+
