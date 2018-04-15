@@ -116,6 +116,65 @@ file in the default namevhost section
 	Include the two files foo.html and bar.html that are located in the DOCUMENTROOT/includes directory. Ensure that files with the extension .html are processing includes, but only when needed.
 
 	-	
+34	Enable the Postfix SMTP server for external access
+	-	Ensure all hosts in your network are allowed to send email to your server.
 
+35	Enable dovecot as IMAP server
+	-	Ensure the student user can log in to IMAP using the password student
+	-	Prepare for this lab by sending a couple of emails to the student user
+		for i in one two three;
+		do
+		echo $i | mail -s "test $i" student@localhost;
+		done
+	-
+36	Enforce TLS/SSL for IMAP in dovecot
+	-	
+37	Enable relaying using SMTP Auth in postfix
+	-	Ensure the mynetworks style is set to host:
+		# postconf -e "mynetworks_style = host"
+
+	-	To avoid issues with incorrectly set up DNS, or enforced ssl, use this setting for your lab as well:
+		# postconf -e "disable_dns_lookups = yes"
+		# postconf -e "smtpd_tls_auth_only = no"
+
+	-	Restart Postfix with above setting before starting the lab:
+		# systemctl restart postfix
+
+38	Enable StartTLS for Postfix, and force Plain-Text logins to use StartTLS
+	Use the following information to create a certificate.
+		Private-key pass phrase: this is a long passphrase
+		Country Name: US
+		State Name: Awesome
+		Locality Name: Awesometown
+		Organization Name: Example Incorporated
+		Organizational Unit Name: IT
+		Common Name: smtp.example.com
+		Email Address: admin@smtp.example.com
+
+
+39	Use SCP to copy a folder from one location to another. Create a directory full of testing files to use for this lab
+	$ mkdir /tmp/transfer-lab/
+	$ mkdir /tmp/receive/
+	$ for i in /tmp/transfer-lab/{a,b,c}-{1,2,3}.{txt,log,bin}
+	do
+	echo $i > $i
+	done
+
+	Use scp to copy just the .log files from /tmp/transfer-lab/, into /tmp/receive/ through the localhost interface.
+
+40	Use rsync over ssh to add the *.bin files only to the previously created folder
+	-
+41	 Create a secure FTP upload site
+	Enable the ftp directory /uploads/ for anonymous uploads.
+	Ensure that files uploaded, cannot be downloaded via FTP.
+
+42	Share a folder over the rsync protocol. Create a directory full of testing files to use for this lab
+	# mkdir /srv/rsync/
+	# for i in /srv/rsync/{a,b,c}-{1,2,3}.{txt,log,bin}
+	do
+	echo $i > $i
+	done
+	Serve the directory /srv/rsync/ directly via rsync, use the rsync module name of default.
+	
 
 

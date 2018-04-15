@@ -380,4 +380,170 @@
 
 	-	Restart Apache and test your new URI.
 		http://localhost/magic/index.html
+34	-	Ensure Postfix is installed
+		yum install postfix
 
+	-	Enable Postfix to listen on all interfaces
+		# postconf -e "inet_interfaces = all"
+
+	-	Enable trusted subnets:
+		# postconf -e "mynetworks_style = subnet"
+
+	-	Restart Postfix
+		# systemctl restart postfix
+
+		Be aware the firewall may interfere with this test
+		Test from a remote server using telnet
+		$ telnet <IP ADDRESS> 25
+		helo localhost
+		mail from:root@localhost
+		rcpt to:root@localhost
+		data
+		Subject: testing telnet email
+		This is neato
+		.
+		quit
+
+	-	Verify the mail was received using the mutt command or the mail command
+		you may have to install the mail command. It is part of either the mailx
+35	-	Ensure dovecot and mutt are installed:
+		# yum install dovecot mutt
+
+	-	Ensure dovecot is listening on all interfaces for the IMAP protocol
+		-	Edit the file /etc/dovecot/dovecot.conf and add/modify these lines:
+			protocols = imap pop3 lmtp
+			listen = *
+	
+	-	Ensure dovecot is using the proper storage location for email
+		-	Edit the file /etc/dovecot/conf.d/10-mail.conf and add the line:
+			mail_location = mbox:~/mail:INBOX=/var/spool/mail/%u
+
+	-	Restart dovecot:
+		# systemctl restart dovecot
+
+	-	Test the dovecot server using mutt
+		# mutt -f imap://student@<IP_ADDRESS>/
+36	-	Edit the configuration file and require ssl.
+		-	Edit the file /etc/dovecot/conf.d/10-ssl.conf and add or edit these line:
+			ssl = required
+
+	-	Restart dovecot: and test your mutt command again.
+		# systemctl restart dovecot
+		# mutt -f imap://student@<IP_ADDRESS>/
+37	-	Enable the SASL authentication service in Dovecot.
+		Edit the file /etc/dovecot/conf.d/10-master.conf and after the section service auth add or un-comment the following lines:
+			unix_listener /var/spool/postfix/private/auth {
+				mode = 0666
+			}
+	-	Restart Dovecot:
+		# systemctl restart dovecot
+
+	-	Enable sasl authentication in Postfix.
+		Make the following setting changes:
+
+		# postconf -e "smtpd_sasl_type = dovecot"
+		# postconf -e "smtpd_sasl_auth_enable = yes"
+		# postconf -e "smtpd_recipient_restrictions = \
+						permit_mynetworks, \
+						permit_sasl_authenticated, \
+						reject_unauth_destination"
+	-	Configure the proper authentication path:
+		# postconf -e "smtpd_sasl_path = private/auth"
+
+	-	Restart Postfix:
+		# systemctl restart postfix
+
+	-	Test plain text authentication from a remote host
+		Notice: that any system listed in permit mynetworks will be allowed to relay. The
+		current settings of permit mynetworks in conjunction with mynetworks style will
+		allow the local system to relay without authentication.
+		If you wish to test authentication on a single machine eliminate the permit mynetworks
+		entry from
+		smtpd recipient restrictions to force all systems attempting to relay to authenticate
+
+		# telnet <SERVER> 25
+		helo localhost
+		mail from:student
+		rcpt to:root@<OTHER MACHINE>
+		quit
+
+	-	This should fail with relay access denied. Test again with authentication: Create the base64 encoded user and password.
+		$ echo -en "\0student\0student" | base64
+
+		Using the encrypted user and password, send the email.
+		$ telnet <SERVER> 25
+		helo localhost
+		auth plain AHN0dWRlbnQAc3R1ZGVudA==
+		mail from:student
+		rcpt to:root@<OTHER MACHINE>
+		data
+		Subject: I sent this using SASL SMTP auth
+		Cool no?
+		.
+		quit
+
+38	-	Create a new PEM certificate
+		# cd /etc/pki/tls/certs
+		# make postfix.pem
+	-	Change the Postfix configuration to enable and enforce TLS
+		# postconf -e "smtpd_tls_auth_only = yes"
+		# postconf -e "smtpd_tls_security_level = may"
+		# postconf -e "smtpd_tls_cert_file = /etc/postfix/postfix.pem"
+		# postconf -e "smtpd_tls_key_file = /etc/postfix/postfix.pem"
+
+	-	Restart Postfix:
+		# systemctl restart postfix
+
+	-	Test SMTP StartTLS
+		Note: You may have to do this twice to get the key data.
+		Note: After the starttls command use the control + d key combination
+
+		$ gnutls-cli --crlf --starttls --insecure --port 25 <IP ADDRESS>
+		ehlo <HOSTNAME>
+		starttls
+		^d
+		auth plain AHN0dWRlbnQAc3R1ZGVudA==
+		mail from:student
+		rcpt to:root@<LOCAL IP ADDRESS>
+		data
+		Subject: I sent this using SASL SMTP auth protected by TLS
+		Cool no?
+		And secure!
+		.
+		quit
+
+		NOTE: There is no option for AUTH until after you start the TLS session.
+		NOTE: Relay access is still denied until after the AUTH step.
+
+39	-	$ scp /tmp/transfer-lab/*.log root@localhost:/tmp/receive
+	-
+40	-	$ rsync -av /tmp/transfer-lab/*.bin root@localhost:/tmp/receive/.
+		Note: '.' at the end of the command
+41	-	Create the upload directory with the proper permissions
+		# mkdir -m 730 /var/ftp/uploads/
+		# chown root.ftp /var/ftp/uploads/
+
+	-	Edit /etc/vsftpd/vsftpd.conf  and enable anonymous uploads. Add the following option
+		anon_upload_enable=yes
+		anonymous_enable=yes
+42	-	Create or edit the file /etc/rsyncd.conf and add these contents
+		[default]
+			path = /srv/rsync
+			comment = default rsync files
+
+	-	Enable the rsync daemon
+		# systemctl start rsyncd
+		# systemctl enable rsyncd
+
+	-	Also enable the rsync daemon configuration by editing the file /etc/default/ rsync and changing the line
+
+		RSYNC_ENABLE=false
+
+		to:
+		RSYNC_ENABLE=true
+
+		Start the rsync daemon
+		# systemctl start rsync
+
+		To see the rsync modules shared
+		$ rsync localhost::
