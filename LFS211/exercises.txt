@@ -175,6 +175,3 @@ file in the default namevhost section
 	echo $i > $i
 	done
 	Serve the directory /srv/rsync/ directly via rsync, use the rsync module name of default.
-	
-
-
