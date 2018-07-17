@@ -1,1 +1,13 @@
-
+1 - Create a file called ahappychild.txt
+My house is red - a little house;
+A happy child am I.
+I laugh and play the whole day long,
+I hardly ever cry.
+I have a tree, a green, green tree,
+To shade me from the sun;
+And under it I often sit,
+When all my play is done.
+2 - Substitute in the above file for the word 'and' with '&' and also replace 'I' with 'You' when 'I' is found at the beinning. These substitutions should be done in the same command
+3 - Print the first 5 lines of /var/log/messages from Jun 8
+4 - Delete blank lines or empty lines from apache conf file
+5 - type 'netstat' command and trim the spaces to one space, get all ports in ascending order
