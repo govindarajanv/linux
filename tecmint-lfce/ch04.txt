@@ -1,0 +1,12 @@
+Managing partitions
+- get help
+- add a new partition
+- print the menu
+- print the partition table
+- write the table to disk 
+- delete the partition
+Find the list of filesystems in your system
+create a ext4 based file system on/dev/sdb1
+view the characeristics of a file system created on a partition
+create a swap partition and determine its size, format and enable swap partition
+Display snapshot of swap partition and also try disabling swap partition  
