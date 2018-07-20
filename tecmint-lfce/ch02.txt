@@ -1,0 +1,9 @@
+group all the files in home directory and package them as gz,bz2 and xz
+List the contents of a tarball and display the same information as a long directory listing, delete one file from the tar and package it again
+backup a directory and restore with the permissions
+Find all files in the current directory and 2 subdirectories below with size greater than 5 MB
+Find all files in user's home directory with 777 permission and delete them
+print the name of all log files that were modified 3 months ago
+Remove the execute permission in setenv.sh
+change file ownership from root to any user on a file
+
