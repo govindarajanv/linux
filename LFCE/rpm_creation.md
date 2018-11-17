@@ -1,7 +1,7 @@
 RPM Creation
 1. Download the source
 2. create tar.gz file
-3. yum is=nstall rpmdevtools -y
+3. yum install rpmdevtools -y
 4.rpmdev-setuptree
 5.cp *tar.gz to rpmbuild/SOURCES
 6.cd rpmbuild/SPECS
