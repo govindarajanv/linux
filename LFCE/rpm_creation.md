@@ -3,8 +3,8 @@ RPM Creation
 2. create tar.gz file
 3. yum install rpmdevtools -y
 4.rpmdev-setuptree
-5.cp *tar.gz to rpmbuild/SOURCES
-6.cd rpmbuild/SPECS
+5. cp *tar.gz to rpmbuild/SOURCES
+6. cd rpmbuild/SPECS
 7. rpmdev-newspec testscript.spec
 8. Open myscript.spec -> update version, summary,
 source0 is name of tar ball (full name with gz)
